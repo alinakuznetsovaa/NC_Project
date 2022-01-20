@@ -37,16 +37,16 @@
 ***
 ## _Схема базы данных:_
 ___Client table___             
-Colomns | Types                
-:---------|:------:            
+Columns | Types                
+:-------------|:----------:            
 __CLIENT_ID__ | __NUMBER__
 C_FIRST_NAME | VARCHAR
 C_LAST_NAME | VARCHAR
 C_EMAIL | VARCHAR
 
 ___Master table___ 
-Colomns | Types
-:---------|:------:
+Columns | Types
+:-------------|:----------:
 __MASTER_ID__ | __NUMBER__
 M_FIRST_NAME | VARCHAR
 M_LAST_NAME | VARCHAR
@@ -54,22 +54,22 @@ M_EMAIL | VARCHAR
 ADRESS | VARCHAR
 
 ___Category table___
-Colomns | Types
-:---------|:------:
+Columns | Types
+:---------------|:---------:
 __CATEGORY_ID__ | __NUMBER__
 CATEGORY_TITLE | VARCHAR
 
 ___Service table___
-Colomns | Types
-:---------|:------:
+Columns | Types
+:--------------|:----------:
 __SERVICE_ID__ | __NUMBER__
 _CATEGORY_ID_ | _NUMBER_
 SERVICE_TITLE | VARCHAR
 TIME | NUMBER
 
 ___Record table___
-Colomns | Types
-:---------|:------:
+Columns | Types
+:-------------|:----------:
 __RECORD_ID__ | __NUMBER__
 _CLIENT_ID_ | _NUMBER_
 _MASTER_ID_ | _NUMBER_
