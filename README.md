@@ -1,5 +1,5 @@
-#Project: Application for online registration for procedures
-##_Application design:_
+# Project: Application for online registration for procedures
+## _Application design:_
 * ___Registration (by mail)___
     * _For the master_
  		* First name, Last name, email, studio address 
