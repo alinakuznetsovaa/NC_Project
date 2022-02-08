@@ -1,39 +1,38 @@
-# Тема проекта: Приложение для онлайн записи на процедуры к мастерам
+# Project: Application for online registration for procedures
+## _Application design:_
+* ___Registration (by mail)___
+    * _For the master_
+ 		* First name, Last name, email, studio address 
+ 		* A list of services (with the time of the procedure)for each category(massage, nails, etc.)
 
-## _Дизайн приложения:_
-* ___Регистрация (по почте)___
-    * _Для мастера_
-        * ФИО, адрес студии, email
-		* Список услуг (со временем выполнения процедуры) с выбором категории услуг (массаж, ногти, и тд)
+ 	* _For the client_
+ 		* First name, Last name,  email
 
-	* _Для клиента_
-		* ФИО, email
+* ___Authorization (by mail)___
+	* _For the client_
+ 	* _For the master_
 
-* ___Авторизация (по почте)___
-	* _Для клиента_
-	* _Для мастера_
+* ___Home page___
+	 * _Search for services_ 
+ 		* Displaying service categories when searching
+ 		* Date selection
+ 		* Display of suitable masters after the search
+ 	* _Recording_
+ 		* Selection of the master, services, time 
+ 		* Formation of a record with the status: _"awaiting confirmation"_
+ 
 
-* ___Главная страница___
-	* _Поиск услуги_ 
-		* Отображение категорий услуг при поиске
-		* Выбор даты
-		* Отображение подходящих мастеров после поиска
-	* _Запись_
-		* Выбор мастера, услуг, времени 
-		* Формирование записи со статусом: _«ожидает подтверждения»_
-		
+* ___Personal account___
+ 	* _List of upcoming sessions_
+ 		* Change the status of the record to _"confirmed"_ (after confirmation of the master)
+		* Change the session (date and time)
+		* Cancel the session
 
-* ___Личный кабинет___
-	* _Список предстоящих сеансов_
-		* Изменение статуса записи на _«подтвержден»_ (после подтверждения мастера)
-		* Изменить сеанс (дату и время)
-		* Отменить сеанс
+ 	* _List of sessions that have passed_
+ 		* Rate and leave a review
 
-	* _Список сеансов прошедших_
-		* Оценить и оставить отзыв
-
-* ___Рассылка акций по почте___
+* ___Mailing of promotions by mail___
 
 ***
-## _Схема базы данных:_
+## _Database structure:_
 ![](Diagram.jpg)
