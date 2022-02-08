@@ -6,7 +6,8 @@ import com.netcracker.model.Service;
 import com.netcracker.repository.CategoryRepository;
 import com.netcracker.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,40 +24,47 @@ public class ServiceController {
 
 
     @GetMapping("/services")
+    @ResponseStatus(HttpStatus.OK)
     public List<Service> getAllServices() {
         return serviceRepository.findAll();
     }
 
     @GetMapping("/services/{id}")
-    public ResponseEntity<Service> getServiceById(@PathVariable(value = "id") Integer id)
+    @ResponseStatus(HttpStatus.OK)
+    public Service getServiceById(@PathVariable(value = "id") Integer id)
             throws ResourceNotFoundException {
 
         Service service = serviceRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Service not found for id: " + id)
         );
 
-        return ResponseEntity.ok(service);
+        return service;
     }
 
     @PostMapping("/services")
-    public Service createService(@RequestBody Service service) throws ResourceNotFoundException {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createService(@RequestBody Service service) throws ResourceNotFoundException {
         service.setCategory(categoryRepository.findById(service.getCategory().getId()).orElseThrow(
                 () -> new ResourceNotFoundException("Category not found for id: " + service.getCategory().getId())));
 
-        return serviceRepository.save(service);
+        serviceRepository.save(service);
     }
 
-    @DeleteMapping("/services/{id}")
-    public String deleteService(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
-        serviceRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Service not found for id: " + id));
-        serviceRepository.deleteById(id);
 
-        return "deleted";
+    @DeleteMapping("/services/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteService(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
+
+        try{
+            serviceRepository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException("Service is not found for id: " + id);
+        }
     }
 
     @PutMapping("/services/{id}")
-    public ResponseEntity<Service> updateService(@PathVariable(value = "id") Integer id,
+    @ResponseStatus(HttpStatus.OK)
+    public void updateService(@PathVariable(value = "id") Integer id,
                                                    @RequestBody Service serviceDetails) throws ResourceNotFoundException {
         Service service = serviceRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Service not found for id: " + id));
@@ -66,13 +74,13 @@ public class ServiceController {
         service.setTime(serviceDetails.getTime());
 
 
-        final Service serviceUpdated = serviceRepository.save(service);
+        serviceRepository.save(service);
 
-        return ResponseEntity.ok(serviceUpdated);
     }
 
     @PatchMapping("/services/{id}")
-    public ResponseEntity<Service> updateServicePartially(@PathVariable(value = "id") Integer id,
+    @ResponseStatus(HttpStatus.OK)
+    public void updateServicePartially(@PathVariable(value = "id") Integer id,
                                                             @RequestBody Service serviceDetails) throws ResourceNotFoundException {
         Service service = serviceRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Service not found for id: " + id));
@@ -82,8 +90,6 @@ public class ServiceController {
             Category category = categoryRepository.findById(idCategory).orElseThrow(
                     () -> new ResourceNotFoundException("Category not found for id: " + idCategory));
             service.setCategory(category);
-
-
         }
 
         if (serviceDetails.getTitle() != null)
@@ -92,9 +98,7 @@ public class ServiceController {
         if (serviceDetails.getTime() != null)
             service.setTime(serviceDetails.getTime());
 
-        final Service serviceUpdated = serviceRepository.save(service);
-
-        return ResponseEntity.ok(serviceUpdated);
+        serviceRepository.save(service);
 
 
     }

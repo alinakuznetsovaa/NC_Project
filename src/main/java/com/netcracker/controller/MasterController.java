@@ -1,11 +1,11 @@
 package com.netcracker.controller;
 
-
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Master;
 import com.netcracker.repository.MasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,57 +18,60 @@ public class MasterController {
     MasterRepository repository;
 
     @GetMapping("/masters")
+    @ResponseStatus(HttpStatus.OK)
     public List<Master> getAllMasters() {
         return repository.findAll();
     }
 
     @GetMapping("/masters/{id}")
-    public ResponseEntity<Master> getMasterById(@PathVariable(value = "id") Integer id)
-            throws ResourceNotFoundException {
+    @ResponseStatus(HttpStatus.OK)
+    public Master getMasterById(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
 
         Master master = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Master not found for id: " + id)
+                () -> new ResourceNotFoundException("Master is not found for id: " + id)
         );
-
-        return ResponseEntity.ok(master);
+        return master;
     }
 
     @PostMapping("/masters")
-    public Master createMaster(@RequestBody Master master){
-        return repository.save(master);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createMaster(@RequestBody Master master){
+         repository.save(master);
     }
 
-    @DeleteMapping("/masters/{id}")
-    public String deleteMaster(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
-        repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Master not found for id: " + id));
-        repository.deleteById(id);
 
-        return "deleted";
+    @DeleteMapping("/masters/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMaster(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
+        try{
+            repository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException("Master is not found for id: " + id);
+        }
     }
 
     @PutMapping("/masters/{id}")
-    public ResponseEntity<Master> updateMaster(@PathVariable(value = "id") Integer id,
+    @ResponseStatus(HttpStatus.OK)
+    public void updateMaster(@PathVariable(value = "id") Integer id,
                                              @RequestBody Master masterDetails) throws ResourceNotFoundException {
        Master master = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Master not found for id: " + id));
+                () -> new ResourceNotFoundException("Master is not found for id: " + id));
 
         master.setFirstName(masterDetails.getFirstName());
         master.setLastName(masterDetails.getLastName());
         master.setEmail(masterDetails.getEmail());
         master.setAdress(masterDetails.getAdress());
 
-        final Master masterUpdated = repository.save(master);
-
-        return ResponseEntity.ok(masterUpdated);
+        repository.save(master);
 
     }
 
     @PatchMapping("/masters/{id}")
-    public ResponseEntity<Master> updatedMasterPartially(@PathVariable(value = "id") Integer id,
+    @ResponseStatus(HttpStatus.OK)
+    public void updatedMasterPartially(@PathVariable(value = "id") Integer id,
                                                       @RequestBody Master masterDetails) throws ResourceNotFoundException {
        Master master = repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Master not found for id: " + id));
+                () -> new ResourceNotFoundException("Master is not found for id: " + id));
 
         if (masterDetails.getFirstName() != null)
             master.setFirstName(masterDetails.getFirstName());
@@ -82,8 +85,7 @@ public class MasterController {
         if(masterDetails.getAdress() != null)
             master.setAdress((masterDetails.getAdress()));
 
-        final Master masterUpdated = repository.save(master);
+        repository.save(master);
 
-        return ResponseEntity.ok(masterUpdated);
     }
 }

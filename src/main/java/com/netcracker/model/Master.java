@@ -1,6 +1,7 @@
 package com.netcracker.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -8,7 +9,7 @@ import javax.persistence.*;
 public class Master {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "master_id", nullable = false)
     private Integer  id;
 
@@ -22,8 +23,7 @@ public class Master {
 
     private String adress;
 
-    public Master(Integer id, String firstName, String lastName, String email, String adress) {
-        this.id = id;
+    public Master(String firstName, String lastName, String email, String adress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -71,5 +71,29 @@ public class Master {
 
     public void setAdress(String adress) {
         this.adress = adress;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Master master = (Master) o;
+        return Objects.equals(id, master.id) && Objects.equals(firstName, master.firstName) && Objects.equals(lastName, master.lastName) && Objects.equals(email, master.email) && Objects.equals(adress, master.adress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, adress);
+    }
+
+    @Override
+    public String toString() {
+        return "Master{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", adress='" + adress + '\'' +
+                '}';
     }
 }

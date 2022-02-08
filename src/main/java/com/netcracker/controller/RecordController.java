@@ -10,7 +10,8 @@ import com.netcracker.repository.MasterRepository;
 import com.netcracker.repository.RecordRepository;
 import com.netcracker.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,23 +35,25 @@ public class RecordController {
 
 
     @GetMapping("/records")
+    @ResponseStatus(HttpStatus.OK)
     public List<Record> getAllRecords() {
         return recordRepository.findAll();
     }
 
     @GetMapping("/records/{id}")
-    public ResponseEntity<Record> getRecordById(@PathVariable(value = "id") Integer id)
+    @ResponseStatus(HttpStatus.OK)
+    public Record getRecordById(@PathVariable(value = "id") Integer id)
             throws ResourceNotFoundException {
 
         Record record = recordRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Record is not found for id: " + id)
         );
-
-        return ResponseEntity.ok(record);
+        return record;
     }
 
     @PostMapping("/records")
-    public Record createRecord(@RequestBody Record record) throws ResourceNotFoundException {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createRecord(@RequestBody Record record) throws ResourceNotFoundException {
         record.setClient(clientRepository.findById(record.getClient().getId()).orElseThrow(
                 () -> new ResourceNotFoundException("Client is not found for id: " + record.getClient().getId())));
 
@@ -59,20 +62,23 @@ public class RecordController {
 
         record.setService(serviceRepository.findById(record.getService().getId()).orElseThrow(
                 () -> new ResourceNotFoundException("Service is not found for id: " + record.getService().getId())));
-          return recordRepository.save(record);
+          recordRepository.save(record);
     }
 
     @DeleteMapping("/records/{id}")
-    public String deleteRecord(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
-        recordRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Record is not found for id: " + id));
-        recordRepository.deleteById(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRecord(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
 
-        return "deleted";
+        try{
+            recordRepository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException("Record is not found for id: " + id);
+        }
     }
 
     @PutMapping("/records/{id}")
-    public ResponseEntity<Record> updateRecord(@PathVariable(value = "id") Integer id,
+    @ResponseStatus(HttpStatus.OK)
+    public void updateRecord(@PathVariable(value = "id") Integer id,
                                                    @RequestBody Record recordDetails) throws ResourceNotFoundException {
         Record record = recordRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Record is not found for id: " + id));
@@ -83,13 +89,12 @@ public class RecordController {
         record.setDateStart(recordDetails.getDateStart());
         record.setDateEnd(recordDetails.getDateEnd());
 
-        final Record recordUpdated = recordRepository.save(record);
-
-        return ResponseEntity.ok(recordUpdated);
+        recordRepository.save(record);
     }
 
     @PatchMapping("/records/{id}")
-    public ResponseEntity<Record> updateRecordPartially(@PathVariable(value = "id") Integer id,
+    @ResponseStatus(HttpStatus.OK)
+    public void updateRecordPartially(@PathVariable(value = "id") Integer id,
                                                             @RequestBody Record recordDetails) throws ResourceNotFoundException {
         Record record = recordRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Record is not found for id: " + id));
@@ -120,10 +125,7 @@ public class RecordController {
             record.setService(service);
         }
 
-        final Record recordUpdated = recordRepository.save(record);
-
-        return ResponseEntity.ok(recordUpdated);
-
+        recordRepository.save(record);
 
     }
 }

@@ -8,7 +8,6 @@
     <artifactId>nc-project</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -33,16 +32,10 @@
 
         </dependency>
 
-
-
-
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-
         </dependency>
-
-
 
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -50,8 +43,6 @@
             <version>1.6.2</version>
         </dependency>
 
-
     </dependencies>
-
 
 </project>

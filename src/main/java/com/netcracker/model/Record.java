@@ -2,7 +2,7 @@ package com.netcracker.model;
 
 import javax.persistence.*;
 import java.util.Date;
-
+import java.util.Objects;
 
 
 @Entity
@@ -10,7 +10,7 @@ import java.util.Date;
 public class Record{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "record_id", nullable = false)
     private Integer id;
 
@@ -37,8 +37,7 @@ public class Record{
     public Record() {
     }
 
-    public Record(Integer id, Client client, Master master, Service service, Date dateStart, Date dateEnd) {
-        this.id = id;
+    public Record(Client client, Master master, Service service, Date dateStart, Date dateEnd) {
         this.client = client;
         this.master = master;
         this.service = service;
@@ -92,5 +91,30 @@ public class Record{
 
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Record record = (Record) o;
+        return Objects.equals(id, record.id) && Objects.equals(client, record.client) && Objects.equals(master, record.master) && Objects.equals(service, record.service) && Objects.equals(dateStart, record.dateStart) && Objects.equals(dateEnd, record.dateEnd);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, client, master, service, dateStart, dateEnd);
+    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", client=" + client +
+                ", master=" + master +
+                ", service=" + service +
+                ", dateStart=" + dateStart +
+                ", dateEnd=" + dateEnd +
+                '}';
     }
 }
