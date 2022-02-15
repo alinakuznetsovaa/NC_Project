@@ -21,13 +21,14 @@ public class Master {
 
     private String email;
 
-    private String adress;
+    @Column(name = "adress", nullable = false)
+    private String address;
 
-    public Master(String firstName, String lastName, String email, String adress) {
+    public Master(String firstName, String lastName, String email, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.adress = adress;
+        this.address = address;
     }
 
     public Master() {
@@ -65,12 +66,12 @@ public class Master {
         this.email = email;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
@@ -78,12 +79,12 @@ public class Master {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Master master = (Master) o;
-        return Objects.equals(id, master.id) && Objects.equals(firstName, master.firstName) && Objects.equals(lastName, master.lastName) && Objects.equals(email, master.email) && Objects.equals(adress, master.adress);
+        return Objects.equals(id, master.id) && Objects.equals(firstName, master.firstName) && Objects.equals(lastName, master.lastName) && Objects.equals(email, master.email) && Objects.equals(address, master.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, adress);
+        return Objects.hash(id, firstName, lastName, email, address);
     }
 
     @Override
@@ -93,7 +94,7 @@ public class Master {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", adress='" + adress + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

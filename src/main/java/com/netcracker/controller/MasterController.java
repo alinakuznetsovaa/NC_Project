@@ -1,14 +1,19 @@
 package com.netcracker.controller;
 
+import com.netcracker.dto.MasterDTO;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Master;
 import com.netcracker.repository.MasterRepository;
+import com.netcracker.services.MasterService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/rest")
@@ -17,25 +22,39 @@ public class MasterController {
     @Autowired
     MasterRepository repository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private MasterService masterService;
+
     @GetMapping("/masters")
     @ResponseStatus(HttpStatus.OK)
-    public List<Master> getAllMasters() {
-        return repository.findAll();
+    public List<MasterDTO> getAllMasters() {
+        return repository.findAll().stream().map(masterService::mapToDTO).collect(toList());
     }
 
     @GetMapping("/masters/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Master getMasterById(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
+    public MasterDTO getMasterById(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
 
         Master master = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Master is not found for id: " + id)
         );
-        return master;
+        return masterService.mapToDTO(master);
+    }
+
+
+    @GetMapping("/masters/get-records-of-master/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<List<String>> getRecordsOfMaster(@PathVariable(value = "id") Integer id) {
+        return repository.getRecordsOfMaster(id);
     }
 
     @PostMapping("/masters")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createMaster(@RequestBody Master master){
+    public void createMaster(@RequestBody MasterDTO masterDTO){
+         Master master = masterService.mapToEntity(masterDTO);
          repository.save(master);
     }
 
@@ -53,14 +72,14 @@ public class MasterController {
     @PutMapping("/masters/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateMaster(@PathVariable(value = "id") Integer id,
-                                             @RequestBody Master masterDetails) throws ResourceNotFoundException {
+                                             @RequestBody MasterDTO masterDetails) throws ResourceNotFoundException {
        Master master = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Master is not found for id: " + id));
 
         master.setFirstName(masterDetails.getFirstName());
         master.setLastName(masterDetails.getLastName());
         master.setEmail(masterDetails.getEmail());
-        master.setAdress(masterDetails.getAdress());
+        master.setAddress(masterDetails.getAddress());
 
         repository.save(master);
 
@@ -69,7 +88,7 @@ public class MasterController {
     @PatchMapping("/masters/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updatedMasterPartially(@PathVariable(value = "id") Integer id,
-                                                      @RequestBody Master masterDetails) throws ResourceNotFoundException {
+                                                      @RequestBody MasterDTO masterDetails) throws ResourceNotFoundException {
        Master master = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Master is not found for id: " + id));
 
@@ -82,8 +101,8 @@ public class MasterController {
         if(masterDetails.getEmail() != null)
             master.setEmail(masterDetails.getEmail());
 
-        if(masterDetails.getAdress() != null)
-            master.setAdress((masterDetails.getAdress()));
+        if(masterDetails.getAddress() != null)
+            master.setAddress((masterDetails.getAddress()));
 
         repository.save(master);
 
