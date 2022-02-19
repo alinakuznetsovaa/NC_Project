@@ -35,4 +35,4 @@
 
 ***
 ## _Database structure:_
-![](Diagram.jpg)
+![](diagram.png)
