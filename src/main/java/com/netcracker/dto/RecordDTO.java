@@ -24,9 +24,6 @@ public class RecordDTO {
 
     @JsonIgnore
     public Date getSubmissionDateStartConverted() throws ParseException {
-        if (this.dateStart == null) {
-            throw new ParseException("dateStart is null", 0);
-        }
         return dateFormat.parse(this.dateStart);
     }
 
@@ -36,9 +33,6 @@ public class RecordDTO {
 
     @JsonIgnore
     public Date getSubmissionDateEndConverted() throws ParseException {
-        if (this.dateEnd == null) {
-            throw new ParseException("dateEnd is null", 0);
-        }
         return dateFormat.parse(this.dateEnd);
     }
 
