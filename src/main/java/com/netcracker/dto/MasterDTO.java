@@ -3,7 +3,7 @@ package com.netcracker.dto;
 
 public class MasterDTO {
 
-    private Integer  id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;

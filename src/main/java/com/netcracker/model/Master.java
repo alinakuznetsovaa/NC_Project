@@ -11,7 +11,7 @@ public class Master {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "master_id", nullable = false)
-    private Integer  id;
+    private Integer id;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -21,7 +21,6 @@ public class Master {
 
     private String email;
 
-    @Column(name = "adress", nullable = false)
     private String address;
 
     public Master(String firstName, String lastName, String email, String address) {

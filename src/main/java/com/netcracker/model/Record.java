@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "record")
-public class Record{
+public class Record {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -23,8 +23,8 @@ public class Record{
     private Master master;
 
     @ManyToOne
-    @JoinColumn(name = "service_id")
-    private Service service;
+    @JoinColumn(name = "favour_id")
+    private Favour favour;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "date_start", nullable = false)
@@ -37,10 +37,10 @@ public class Record{
     public Record() {
     }
 
-    public Record(Client client, Master master, Service service, Date dateStart, Date dateEnd) {
+    public Record(Client client, Master master, Favour favour, Date dateStart, Date dateEnd) {
         this.client = client;
         this.master = master;
-        this.service = service;
+        this.favour = favour;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
@@ -69,12 +69,12 @@ public class Record{
         this.master = master;
     }
 
-    public Service getService() {
-        return service;
+    public Favour getFavour() {
+        return favour;
     }
 
-    public void setService(Service service) {
-        this.service = service;
+    public void setFavour(Favour favour) {
+        this.favour = favour;
     }
 
     public Date getDateStart() {
@@ -98,12 +98,12 @@ public class Record{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Record record = (Record) o;
-        return Objects.equals(id, record.id) && Objects.equals(client, record.client) && Objects.equals(master, record.master) && Objects.equals(service, record.service) && Objects.equals(dateStart, record.dateStart) && Objects.equals(dateEnd, record.dateEnd);
+        return Objects.equals(id, record.id) && Objects.equals(client, record.client) && Objects.equals(master, record.master) && Objects.equals(favour, record.favour) && Objects.equals(dateStart, record.dateStart) && Objects.equals(dateEnd, record.dateEnd);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, client, master, service, dateStart, dateEnd);
+        return Objects.hash(id, client, master, favour, dateStart, dateEnd);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class Record{
                 "id=" + id +
                 ", client=" + client +
                 ", master=" + master +
-                ", service=" + service +
+                ", favour=" + favour +
                 ", dateStart=" + dateStart +
                 ", dateEnd=" + dateEnd +
                 '}';

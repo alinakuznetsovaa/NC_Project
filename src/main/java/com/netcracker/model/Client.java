@@ -1,4 +1,5 @@
 package com.netcracker.model;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "client_id", nullable = false)
-    private Integer  id;
+    private Integer id;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -20,7 +21,7 @@ public class Client {
     private String email;
 
 
-    public Client(){
+    public Client() {
 
     }
 
