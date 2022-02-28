@@ -1,4 +1,5 @@
 package com.netcracker.model;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -36,6 +37,7 @@ public class Category {
     public void setTitle(String title) {
         this.title = title;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
