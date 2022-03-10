@@ -13,7 +13,8 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/records")
+@CrossOrigin(origins = "http://localhost:4200")
 public class RecordController {
 
     @Autowired
@@ -23,13 +24,13 @@ public class RecordController {
     private RecordUtil recordUtil;
 
 
-    @GetMapping("/records")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<RecordDTO> getAllRecords() {
         return recordService.getAllRecords().stream().map(recordUtil::mapToDTO).collect(toList());
     }
 
-    @GetMapping("/records/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public RecordDTO getRecordById(@PathVariable(value = "id") Integer id) {
 
@@ -37,21 +38,21 @@ public class RecordController {
         return recordUtil.mapToDTO(record);
     }
 
-    @PostMapping("/records")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void createRecord(@RequestBody RecordDTO recordDTO) {
         Record record = recordUtil.mapToEntity(recordDTO);
         recordService.createRecord(record);
     }
 
-    @DeleteMapping("/records/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRecord(@PathVariable(value = "id") Integer id) {
 
         recordService.deleteRecord(id);
     }
 
-    @PutMapping("/records/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateRecord(@PathVariable(value = "id") Integer id,
                              @RequestBody RecordDTO recordDTO) {
@@ -59,7 +60,7 @@ public class RecordController {
         recordService.updateRecord(id, record);
     }
 
-    @PatchMapping("/records/{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateRecordPartially(@PathVariable(value = "id") Integer id,
                                       @RequestBody RecordDTO recordDTO) {

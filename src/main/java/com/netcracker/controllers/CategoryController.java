@@ -13,7 +13,8 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/categories")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CategoryController {
 
 
@@ -25,13 +26,13 @@ public class CategoryController {
     private CategoryUtil categoryUtil;
 
 
-    @GetMapping("/categories")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryDTO> getAllCategories() {
         return categoryService.getAllCategories().stream().map(categoryUtil::mapToDTO).collect(toList());
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDTO getCategoryById(@PathVariable(value = "id") Integer id) {
 
@@ -40,20 +41,20 @@ public class CategoryController {
 
     }
 
-    @PostMapping("/categories")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void createCategory(@RequestBody CategoryDTO categoryDTO) {
         Category category = categoryUtil.mapToEntity(categoryDTO);
         categoryService.createCategory(category);
     }
 
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable(value = "id") Integer id) {
         categoryService.deleteCategory(id);
     }
 
-    @PutMapping("/categories/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateCategory(@PathVariable(value = "id") Integer id,
                                @RequestBody CategoryDTO categoryDTO) {

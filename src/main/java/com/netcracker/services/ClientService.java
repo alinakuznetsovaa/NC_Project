@@ -1,5 +1,6 @@
 package com.netcracker.services;
 
+import com.netcracker.Rec;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Client;
 import com.netcracker.repositories.ClientRepository;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -28,9 +31,18 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public List<String> getRecordsOfClient(Integer id) {
+    public List<Rec> getRecordsOfClient(Integer id) {
         return clientRepository.getRecordsOfClient(id);
+//        ArrayList<String[]> recs = new ArrayList<>();
+//        String[] rec;
+//        for (String item : items) {
+//            rec = Arrays.asList(String.valueOf(item.split(",")));
+//        }
+//        recs.add(rec);
+//
+//        return recs;
     }
+
 
     public void createClient(Client client) {
         clientRepository.save(client);
@@ -50,9 +62,11 @@ public class ClientService {
                 () -> new ResourceNotFoundException("Client is not found for id: " + id)
         );
 
+
         client.setFirstName(newClient.getFirstName());
         client.setLastName(newClient.getLastName());
         client.setEmail(newClient.getEmail());
+
 
         clientRepository.save(client);
     }

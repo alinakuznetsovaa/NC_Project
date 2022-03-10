@@ -13,7 +13,8 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/favours")
+@CrossOrigin(origins = "http://localhost:4200")
 public class FavourController {
 
     @Autowired
@@ -23,13 +24,13 @@ public class FavourController {
     private FavourUtil favourUtil;
 
 
-    @GetMapping("/favours")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<FavourDTO> getAllFavours() {
         return favourService.getAllServices().stream().map(favourUtil::mapToDTO).collect(toList());
     }
 
-    @GetMapping("/favours/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public FavourDTO getFavourById(@PathVariable(value = "id") Integer id) {
 
@@ -38,22 +39,23 @@ public class FavourController {
         return favourUtil.mapToDTO(favour);
     }
 
-    @PostMapping("/favours")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void createFavour(@RequestBody FavourDTO favourDTO) {
+    public FavourDTO createFavour(@RequestBody FavourDTO favourDTO) {
         Favour favour = favourUtil.mapToEntity(favourDTO);
         favourService.createService(favour);
+        return favourUtil.mapToDTO(favour);
     }
 
 
-    @DeleteMapping("/favours/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFavour(@PathVariable(value = "id") Integer id) {
 
         favourService.deleteService(id);
     }
 
-    @PutMapping("/favours/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateFavour(@PathVariable(value = "id") Integer id,
                              @RequestBody FavourDTO favourDTO) {
@@ -62,7 +64,7 @@ public class FavourController {
 
     }
 
-    @PatchMapping("/favours/{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateFavourPartially(@PathVariable(value = "id") Integer id,
                                       @RequestBody FavourDTO favourDTO) {

@@ -1,5 +1,6 @@
 package com.netcracker.services;
 
+import com.netcracker.Rec;
 import com.netcracker.dto.MasterDTO;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Master;
@@ -31,7 +32,7 @@ public class MasterService {
         );
     }
 
-    public List<String> getRecordsOfMaster(Integer id) {
+    public List<Rec> getRecordsOfMaster(Integer id) {
         return masterRepository.getRecordsOfMaster(id);
     }
 

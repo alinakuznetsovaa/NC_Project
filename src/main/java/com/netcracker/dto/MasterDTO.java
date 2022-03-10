@@ -8,6 +8,8 @@ public class MasterDTO {
     private String lastName;
     private String email;
     private String address;
+    private String phone;
+
 
 
     public Integer getId() {
@@ -48,5 +50,13 @@ public class MasterDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

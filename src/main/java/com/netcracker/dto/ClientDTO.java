@@ -9,6 +9,7 @@ public class ClientDTO {
     private String email;
 
 
+
     public Integer getId() {
         return id;
     }
@@ -40,6 +41,7 @@ public class ClientDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
 
 }
