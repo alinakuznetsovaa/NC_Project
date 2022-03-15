@@ -7,6 +7,8 @@ public class ClientDTO {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
+
 
 
 
@@ -42,6 +44,13 @@ public class ClientDTO {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
 }

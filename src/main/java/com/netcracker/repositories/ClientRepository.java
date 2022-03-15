@@ -1,5 +1,6 @@
 package com.netcracker.repositories;
 
+import com.netcracker.Login;
 import com.netcracker.Rec;
 import com.netcracker.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,11 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
             "record.master_id = master.master_id AND \n" +
             "record.favour_id = favour.favour_id", nativeQuery = true)
     List<Rec> getRecordsOfClient(Integer id);
+
+    @Query(value = "select * from client as c \n" +
+            "  where c.email = :email \n" +
+            "  and c.password = :password ", nativeQuery = true)
+    Client getClientOnLogin(String email, String password);
+
+
 }

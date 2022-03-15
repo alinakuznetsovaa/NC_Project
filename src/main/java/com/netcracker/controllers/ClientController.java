@@ -1,5 +1,6 @@
 package com.netcracker.controllers;
 
+import com.netcracker.Login;
 import com.netcracker.Rec;
 import com.netcracker.dto.ClientDTO;
 import com.netcracker.model.Client;
@@ -37,6 +38,13 @@ public class ClientController {
     @ResponseStatus(HttpStatus.OK)
     public ClientDTO getClientById(@PathVariable(value = "id") Integer id) {
         Client client = clientService.getClientById(id);
+        return clientUtil.mapToDTO(client);
+    }
+
+    @PostMapping("/get-client-on-login")
+    @ResponseStatus(HttpStatus.OK)
+    public ClientDTO getClientOnLogin(@RequestBody Login login) {
+        Client client = clientService.getClientOnLogin(login);
         return clientUtil.mapToDTO(client);
     }
 

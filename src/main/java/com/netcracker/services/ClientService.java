@@ -1,5 +1,6 @@
 package com.netcracker.services;
 
+import com.netcracker.Login;
 import com.netcracker.Rec;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Client;
@@ -8,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,20 +26,17 @@ public class ClientService {
         );
     }
 
+    public Client getClientOnLogin(Login login) {
+
+        return clientRepository.getClientOnLogin(login.getEmail(), login.getPassword());
+    }
+
     public List<Client> getAllClients() {
         return clientRepository.findAll();
     }
 
     public List<Rec> getRecordsOfClient(Integer id) {
         return clientRepository.getRecordsOfClient(id);
-//        ArrayList<String[]> recs = new ArrayList<>();
-//        String[] rec;
-//        for (String item : items) {
-//            rec = Arrays.asList(String.valueOf(item.split(",")));
-//        }
-//        recs.add(rec);
-//
-//        return recs;
     }
 
 
@@ -66,6 +62,7 @@ public class ClientService {
         client.setFirstName(newClient.getFirstName());
         client.setLastName(newClient.getLastName());
         client.setEmail(newClient.getEmail());
+        client.setPassword(newClient.getPassword());
 
 
         clientRepository.save(client);
@@ -83,6 +80,8 @@ public class ClientService {
             client.setLastName(newClient.getLastName());
         if (newClient.getEmail() != null)
             client.setEmail(newClient.getEmail());
+        if (newClient.getPassword() != null)
+            client.setPassword(newClient.getPassword());
 
         clientRepository.save(client);
     }
