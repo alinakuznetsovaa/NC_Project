@@ -33,6 +33,7 @@ public class ProjectApplication {
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(urlBasedCorsConfigurationSource);
     }
+
     public static void main(String[] args) {
 
         SpringApplication.run(ProjectApplication.class);

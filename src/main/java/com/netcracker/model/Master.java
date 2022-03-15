@@ -1,6 +1,7 @@
 package com.netcracker.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -23,14 +24,30 @@ public class Master {
 
     private String address;
 
-    public Master(String firstName, String lastName, String email, String address) {
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "masters_favours",
+            joinColumns = @JoinColumn(name = "master_id"),
+            inverseJoinColumns = @JoinColumn(name = "favour_id"))
+    private List<Favour> favours;
+
+    public Master(String firstName, String lastName, String email, String address,List<Favour> favours) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
+        this.favours = favours;
     }
 
     public Master() {
+    }
+
+    public List<Favour> getFavours() {
+        return favours;
+    }
+
+    public void setFavours(List<Favour> favours) {
+        this.favours = favours;
     }
 
     public Integer getId() {

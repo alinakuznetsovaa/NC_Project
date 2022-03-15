@@ -18,4 +18,6 @@ public interface MasterRepository extends JpaRepository<Master, Integer> {
             "record.client_id = client.client_id AND \n" +
             "record.favour_id = favour.favour_id", nativeQuery = true)
     List<Rec> getRecordsOfMaster(Integer id);
+
+
 }
