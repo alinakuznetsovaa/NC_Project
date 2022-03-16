@@ -1,8 +1,10 @@
 package com.netcracker.services;
 
+import com.netcracker.Login;
 import com.netcracker.Rec;
 import com.netcracker.dto.MasterDTO;
 import com.netcracker.exception.ResourceNotFoundException;
+import com.netcracker.model.Client;
 import com.netcracker.model.Master;
 import com.netcracker.repositories.MasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,11 @@ public class MasterService {
         return masterRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Master is not found for id: " + id)
         );
+    }
+
+    public Master getMasterOnLogin(Login login) {
+
+        return masterRepository.getMasterOnLogin(login.getEmail(), login.getPassword());
     }
 
     public List<Rec> getRecordsOfMaster(Integer id) {

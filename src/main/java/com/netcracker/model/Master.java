@@ -24,6 +24,8 @@ public class Master {
 
     private String address;
 
+    private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "masters_favours",
@@ -31,11 +33,12 @@ public class Master {
             inverseJoinColumns = @JoinColumn(name = "favour_id"))
     private List<Favour> favours;
 
-    public Master(String firstName, String lastName, String email, String address,List<Favour> favours) {
+    public Master(String firstName, String lastName, String email, String address, String password, List<Favour> favours) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
+        this.password = password;
         this.favours = favours;
     }
 
@@ -88,6 +91,14 @@ public class Master {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

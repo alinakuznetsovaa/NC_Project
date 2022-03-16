@@ -1,7 +1,10 @@
 package com.netcracker.controllers;
 
+import com.netcracker.Login;
 import com.netcracker.Rec;
+import com.netcracker.dto.ClientDTO;
 import com.netcracker.dto.MasterDTO;
+import com.netcracker.model.Client;
 import com.netcracker.model.Master;
 import com.netcracker.services.MasterService;
 import com.netcracker.utils.MasterUtil;
@@ -44,6 +47,12 @@ public class MasterController {
     @ResponseStatus(HttpStatus.OK)
     public List<Rec> getRecordsOfMaster(@PathVariable(value = "id") Integer id) {
         return masterService.getRecordsOfMaster(id);
+    }
+    @PostMapping("/get-master-on-login")
+    @ResponseStatus(HttpStatus.OK)
+    public MasterDTO getMasterOnLogin(@RequestBody Login login) {
+        Master master = masterService.getMasterOnLogin(login);
+        return masterUtil.mapToDTO(master);
     }
 
     @PostMapping()

@@ -1,6 +1,7 @@
 package com.netcracker.repositories;
 
 import com.netcracker.Rec;
+import com.netcracker.model.Client;
 import com.netcracker.model.Master;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,5 +20,9 @@ public interface MasterRepository extends JpaRepository<Master, Integer> {
             "record.favour_id = favour.favour_id", nativeQuery = true)
     List<Rec> getRecordsOfMaster(Integer id);
 
+    @Query(value = "select * from master as m \n" +
+            "  where m.email = :email \n" +
+            "  and m.password = :password ", nativeQuery = true)
+    Master getMasterOnLogin(String email, String password);
 
 }

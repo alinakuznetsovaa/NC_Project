@@ -8,7 +8,7 @@ public class MasterDTO {
     private String lastName;
     private String email;
     private String address;
-    private String phone;
+    private String password;
 
 
 
@@ -52,11 +52,11 @@ public class MasterDTO {
         this.address = address;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
