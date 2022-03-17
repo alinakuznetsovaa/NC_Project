@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -26,6 +27,7 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
             "  where c.email = :email \n" +
             "  and c.password = :password ", nativeQuery = true)
     Client getClientOnLogin(String email, String password);
+
 
 
 }

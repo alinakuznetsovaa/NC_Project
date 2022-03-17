@@ -12,7 +12,7 @@ import java.util.Date;
 public class RecordDTO {
 
     private static final SimpleDateFormat dateFormat
-            = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+            = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     private Integer id;
     private Client client;

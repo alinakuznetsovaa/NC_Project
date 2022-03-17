@@ -49,6 +49,8 @@ public class ClientController {
     }
 
 
+
+
     @GetMapping("/get-all-records-of-client/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<Rec> getAllRecordsOfClient(@PathVariable(value = "id") Integer id) {

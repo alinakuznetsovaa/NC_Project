@@ -3,10 +3,15 @@ package com.netcracker.repositories;
 import com.netcracker.Rec;
 import com.netcracker.model.Client;
 import com.netcracker.model.Master;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Convert;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -24,5 +29,16 @@ public interface MasterRepository extends JpaRepository<Master, Integer> {
             "  where m.email = :email \n" +
             "  and m.password = :password ", nativeQuery = true)
     Master getMasterOnLogin(String email, String password);
+
+   
+    @Query(value = "select cd.date from categories_dates as cd \n" +
+            "  where cd.category_id = :categoryId \n" +
+            "  and cd.master_id = :masterId ", nativeQuery = true)
+    List<LocalDateTime> getFreeDates(Integer categoryId, Integer masterId);
+
+    @Modifying
+    @Query(value = "INSERT INTO categories_masters(category_id,master_id,date) values (:categoryId,:masterId,:date)", nativeQuery = true)
+    void setFreeDatesOfMaster(Integer categoryId, Integer masterId, LocalDateTime date);
+
 
 }

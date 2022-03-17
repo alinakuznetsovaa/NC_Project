@@ -1,6 +1,7 @@
 package com.netcracker.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,6 +33,13 @@ public class Master {
             joinColumns = @JoinColumn(name = "master_id"),
             inverseJoinColumns = @JoinColumn(name = "favour_id"))
     private List<Favour> favours;
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name="categories_dates",
+//            joinColumns = @JoinColumn(name = "master_id"),
+//            inverseJoinColumns = @JoinColumn(name="category_id")
+//    )
+//    private List<Date> dates;
 
     public Master(String firstName, String lastName, String email, String address, String password, List<Favour> favours) {
         this.firstName = firstName;

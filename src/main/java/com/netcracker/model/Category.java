@@ -1,6 +1,8 @@
 package com.netcracker.model;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +15,13 @@ public class Category {
     private Integer id;
 
     private String title;
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name="categories_dates",
+//            joinColumns = @JoinColumn(name = "category_id"),
+//            inverseJoinColumns = @JoinColumn(name="master_id")
+//    )
+//    private List<Date> dates;
 
     public Category() {
     }

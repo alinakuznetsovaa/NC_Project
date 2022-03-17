@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -37,6 +40,16 @@ public class MasterService {
     public Master getMasterOnLogin(Login login) {
 
         return masterRepository.getMasterOnLogin(login.getEmail(), login.getPassword());
+    }
+
+    public List<LocalDateTime> getFreeDates(Integer masterId, Integer categoryId) {
+
+        return masterRepository.getFreeDates(categoryId,masterId);
+    }
+
+    @Transactional
+    public void setFreeDatesOfMaster(Integer categoryId, Integer masterId, LocalDateTime date){
+        masterRepository.setFreeDatesOfMaster(categoryId, masterId, date);
     }
 
     public List<Rec> getRecordsOfMaster(Integer id) {
