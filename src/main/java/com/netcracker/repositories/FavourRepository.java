@@ -15,7 +15,7 @@ public interface FavourRepository extends JpaRepository<Favour, Integer> {
     @Query(value = "INSERT INTO masters_favours(master_id, favour_id) values (:masterId,:favourId)", nativeQuery = true)
     void setFavoursOfMaster(Integer masterId, Integer favourId);
 
-    @Query(value = "select c.category_id as categoryId , f.favour_id as favourId, c.title as categoryTitle, f.title as favourTitle, f.time as time \n" +
+    @Query(value = "select c.category_id as categoryId , f.favour_id as favourId, c.title as categoryTitle, f.title as favourTitle, f.time as time, f.price as price \n" +
             "from favour as f, masters_favours as mf, category as c \n" +
             "where f.favour_id = mf.favour_id \n" +
             "and f.category_id = c.category_id\n" +

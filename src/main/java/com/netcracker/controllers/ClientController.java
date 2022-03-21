@@ -1,5 +1,6 @@
 package com.netcracker.controllers;
 
+import com.netcracker.FavourDtoForClient;
 import com.netcracker.Login;
 import com.netcracker.RecordDtoForClient;
 import com.netcracker.dto.ClientDTO;
@@ -53,6 +54,12 @@ public class ClientController {
     @ResponseStatus(HttpStatus.OK)
     public List<RecordDtoForClient> getAllRecordsOfClient(@PathVariable(value = "id") Integer id) {
         return clientService.getRecordsOfClient(id);
+    }
+
+    @GetMapping("/get-favours-of-category/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<FavourDtoForClient> getFavoursOfCategory(@PathVariable(value = "id") Integer id) {
+        return clientService.getFavoursOfCategory(id);
     }
 
     @PostMapping()

@@ -1,5 +1,6 @@
 package com.netcracker.services;
 
+import com.netcracker.FavourDtoForClient;
 import com.netcracker.Login;
 import com.netcracker.RecordDtoForClient;
 import com.netcracker.exception.ResourceNotFoundException;
@@ -37,6 +38,10 @@ public class ClientService {
 
     public List<RecordDtoForClient> getRecordsOfClient(Integer id) {
         return clientRepository.getRecordsOfClient(id);
+    }
+
+    public List<FavourDtoForClient> getFavoursOfCategory(Integer id) {
+        return clientRepository.getFavoursOfCategory(id);
     }
 
 

@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface RecordRepository extends JpaRepository<Record, Integer> {
 
-    @Query(value = "SELECT favour.title as title, record.date_start as dateStart, record.date_end as dateEnd\n" +
+    @Query(value = "SELECT favour.title as title,favour.price as price, record.date_start as dateStart, record.date_end as dateEnd\n" +
             "FROM favour,record \n" +
             "WHERE \n" +
             "favour.favour_id = :favourId AND \n" +

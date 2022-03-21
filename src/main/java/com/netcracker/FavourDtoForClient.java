@@ -1,9 +1,15 @@
 package com.netcracker;
 
-public interface FavourDtoToAddFavour {
-    String getCategoryId();
-
+public interface FavourDtoForClient {
     String getFavourId();
+
+    String getMasterId();
+
+    String getMasterFirstName();
+
+    String getMasterLastName();
+
+    String getAddress();
 
     String getCategoryTitle();
 

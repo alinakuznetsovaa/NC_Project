@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface MasterRepository extends JpaRepository<Master, Integer> {
     @Query(value = "SELECT client.first_name as firstName,client.last_name as lastName,client.email as address, \n" +
-            "favour.title as title, record.date_start as dateStart, record.date_end as dateEnd \n" +
+            "favour.title as title, favour.price as price, record.date_start as dateStart, record.date_end as dateEnd \n" +
             "FROM client,favour,record \n" +
             "WHERE \n" +
             "record.master_id = :id AND \n" +

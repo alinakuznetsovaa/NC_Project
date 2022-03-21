@@ -63,6 +63,7 @@ public class FavourService {
         favour.setCategory(newFavour.getCategory());
         favour.setTitle(newFavour.getTitle());
         favour.setTime(newFavour.getTime());
+        favour.setPrice(newFavour.getPrice());
 
 
         favourRepository.save(favour);
@@ -86,6 +87,9 @@ public class FavourService {
 
         if (newFavour.getTime() != null)
             favour.setTime(newFavour.getTime());
+
+        if (newFavour.getPrice() != null)
+            favour.setPrice(newFavour.getPrice());
 
         favourRepository.save(favour);
     }

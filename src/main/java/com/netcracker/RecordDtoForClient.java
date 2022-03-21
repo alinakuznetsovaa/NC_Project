@@ -12,6 +12,8 @@ public interface RecordDtoForClient {
 
     String getTitle();
 
+    String getPrice();
+
     String getDateStart();
 
     String getDateEnd();

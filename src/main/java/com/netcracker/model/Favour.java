@@ -21,6 +21,8 @@ public class Favour {
 
     private Double time;
 
+    private Integer price;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "masters_favours",
@@ -33,10 +35,11 @@ public class Favour {
     public Favour() {
     }
 
-    public Favour(Category category, String title, Double time, List<Master> masters) {
+    public Favour(Category category, String title, Double time, Integer price, List<Master> masters) {
         this.category = category;
         this.title = title;
         this.time = time;
+        this.price = price;
         this.masters = masters;
     }
 
@@ -79,6 +82,14 @@ public class Favour {
 
     public void setTime(Double time) {
         this.time = time;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Override

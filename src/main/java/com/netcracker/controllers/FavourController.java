@@ -62,9 +62,7 @@ public class FavourController {
         favour.setCategory(category);
         favourService.createFavour(masterId, favour);
         return favourUtil.mapToDTO(favour);
-//        Favour favour = favourUtil.mapToEntity(favourDTO);
-//        favourService.createService(favour);
-        //  return favourUtil.mapToDTO(favour);
+
     }
 
 
