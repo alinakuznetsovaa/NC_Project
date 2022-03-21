@@ -1,6 +1,6 @@
 package com.netcracker.repositories;
 
-import com.netcracker.Fav;
+import com.netcracker.FavourDtoToAddFavour;
 import com.netcracker.model.Favour;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,5 +20,5 @@ public interface FavourRepository extends JpaRepository<Favour, Integer> {
             "where f.favour_id = mf.favour_id \n" +
             "and f.category_id = c.category_id\n" +
             "and mf.master_id = :id", nativeQuery = true)
-    List<Fav> getFavoursOfMaster(Integer id);
+    List<FavourDtoToAddFavour> getFavoursOfMaster(Integer id);
 }

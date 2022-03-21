@@ -21,7 +21,6 @@ public class RecordUtil {
     public RecordDTO mapToDTO(Record record) {
         RecordDTO recordDTO = mapper.map(record, RecordDTO.class);
         recordDTO.setSubmissionDateStart(record.getDateStart());
-        recordDTO.setSubmissionDateEnd(record.getDateEnd());
         return recordDTO;
     }
 
@@ -31,14 +30,6 @@ public class RecordUtil {
         if (recordDTO.getDateStart() != null) {
             try {
                 record.setDateStart(recordDTO.getSubmissionDateStartConverted());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (record.getDateEnd() != null) {
-            try {
-                record.setDateEnd(recordDTO.getSubmissionDateEndConverted());
             } catch (ParseException e) {
                 e.printStackTrace();
             }

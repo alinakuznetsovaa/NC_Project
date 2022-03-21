@@ -1,6 +1,6 @@
 package com.netcracker.services;
 
-import com.netcracker.Fav;
+import com.netcracker.FavourDtoToAddFavour;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Category;
 import com.netcracker.model.Favour;
@@ -35,7 +35,7 @@ public class FavourService {
         );
     }
 
-    public List<Fav> getFavoursOfMaster(Integer id) {
+    public List<FavourDtoToAddFavour> getFavoursOfMaster(Integer id) {
         return favourRepository.getFavoursOfMaster(id);
     }
 
@@ -88,7 +88,5 @@ public class FavourService {
             favour.setTime(newFavour.getTime());
 
         favourRepository.save(favour);
-
-
     }
 }

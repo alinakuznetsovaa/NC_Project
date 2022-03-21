@@ -1,7 +1,7 @@
 package com.netcracker.services;
 
 import com.netcracker.Login;
-import com.netcracker.Rec;
+import com.netcracker.RecordDtoForClient;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Client;
 import com.netcracker.repositories.ClientRepository;
@@ -35,7 +35,7 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public List<Rec> getRecordsOfClient(Integer id) {
+    public List<RecordDtoForClient> getRecordsOfClient(Integer id) {
         return clientRepository.getRecordsOfClient(id);
     }
 

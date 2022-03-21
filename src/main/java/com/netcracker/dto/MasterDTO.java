@@ -11,7 +11,6 @@ public class MasterDTO {
     private String password;
 
 
-
     public Integer getId() {
         return id;
     }

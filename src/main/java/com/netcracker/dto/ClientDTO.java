@@ -10,8 +10,6 @@ public class ClientDTO {
     private String password;
 
 
-
-
     public Integer getId() {
         return id;
     }

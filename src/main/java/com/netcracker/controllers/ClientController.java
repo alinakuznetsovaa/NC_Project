@@ -1,7 +1,7 @@
 package com.netcracker.controllers;
 
 import com.netcracker.Login;
-import com.netcracker.Rec;
+import com.netcracker.RecordDtoForClient;
 import com.netcracker.dto.ClientDTO;
 import com.netcracker.model.Client;
 import com.netcracker.services.ClientService;
@@ -49,11 +49,9 @@ public class ClientController {
     }
 
 
-
-
     @GetMapping("/get-all-records-of-client/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Rec> getAllRecordsOfClient(@PathVariable(value = "id") Integer id) {
+    public List<RecordDtoForClient> getAllRecordsOfClient(@PathVariable(value = "id") Integer id) {
         return clientService.getRecordsOfClient(id);
     }
 

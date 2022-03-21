@@ -1,5 +1,6 @@
 package com.netcracker.services;
 
+import com.netcracker.RecordDtoForClientToCreateRecord;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Client;
 import com.netcracker.model.Favour;
@@ -41,6 +42,11 @@ public class RecordService {
                 () -> new ResourceNotFoundException("Record is not found for id: " + id)
         );
     }
+
+    public List<RecordDtoForClientToCreateRecord> getRecordsOfMasterOnFavour(Integer masterId, Integer favourId) {
+        return recordRepository.getRecordsOfMasterOnFavour(masterId, favourId);
+    }
+
 
     public void createRecord(Record record) {
         record.setClient(clientRepository.findById(record.getClient().getId()).orElseThrow(

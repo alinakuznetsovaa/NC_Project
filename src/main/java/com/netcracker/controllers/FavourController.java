@@ -1,6 +1,6 @@
 package com.netcracker.controllers;
 
-import com.netcracker.Fav;
+import com.netcracker.FavourDtoToAddFavour;
 import com.netcracker.dto.FavourDTO;
 import com.netcracker.model.Category;
 import com.netcracker.model.Favour;
@@ -48,7 +48,7 @@ public class FavourController {
 
     @GetMapping("/{master_id}/get-favours-of-master")
     @ResponseStatus(HttpStatus.OK)
-    public List<Fav> getFavoursOfMaster(@PathVariable(value = "master_id") Integer id) {
+    public List<FavourDtoToAddFavour> getFavoursOfMaster(@PathVariable(value = "master_id") Integer id) {
 
 
         return favourService.getFavoursOfMaster(id);

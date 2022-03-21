@@ -12,14 +12,13 @@ import java.util.Date;
 public class RecordDTO {
 
     private static final SimpleDateFormat dateFormat
-            = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
     private Integer id;
     private Client client;
     private Master master;
     private Favour favour;
     private String dateStart;
-    private String dateEnd;
 
 
     @JsonIgnore
@@ -29,15 +28,6 @@ public class RecordDTO {
 
     public void setSubmissionDateStart(Date date) {
         this.dateStart = dateFormat.format(date);
-    }
-
-    @JsonIgnore
-    public Date getSubmissionDateEndConverted() throws ParseException {
-        return dateFormat.parse(this.dateEnd);
-    }
-
-    public void setSubmissionDateEnd(Date date) {
-        this.dateEnd = dateFormat.format(date);
     }
 
     public Integer getId() {
@@ -80,11 +70,5 @@ public class RecordDTO {
         this.dateStart = dateStart;
     }
 
-    public String getDateEnd() {
-        return dateEnd;
-    }
 
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
-    }
 }

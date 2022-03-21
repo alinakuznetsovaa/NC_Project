@@ -23,15 +23,11 @@ public class Favour {
 
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="masters_favours",
+    @JoinTable(name = "masters_favours",
             joinColumns = @JoinColumn(name = "favour_id"),
-            inverseJoinColumns = @JoinColumn(name="master_id")
+            inverseJoinColumns = @JoinColumn(name = "master_id")
     )
     private List<Master> masters;
-
-
-
-
 
 
     public Favour() {
@@ -43,6 +39,7 @@ public class Favour {
         this.time = time;
         this.masters = masters;
     }
+
     public List<Master> getMasters() {
         return masters;
     }
