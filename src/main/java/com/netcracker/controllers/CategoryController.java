@@ -43,9 +43,10 @@ public class CategoryController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCategory(@RequestBody CategoryDTO categoryDTO) {
+    public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO) {
         Category category = categoryUtil.mapToEntity(categoryDTO);
         categoryService.createCategory(category);
+        return categoryUtil.mapToDTO(category);
     }
 
     @DeleteMapping("/{id}")

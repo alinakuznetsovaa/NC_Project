@@ -1,6 +1,7 @@
 package com.netcracker.utils;
 
 import com.netcracker.dto.ClientDTO;
+import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Client;
 import com.netcracker.repositories.ClientRepository;
 import org.modelmapper.ModelMapper;
@@ -17,7 +18,11 @@ public class ClientUtil {
     }
 
     public ClientDTO mapToDTO(Client client) {
-        return mapper.map(client, ClientDTO.class);
+        try {
+            return mapper.map(client, ClientDTO.class);
+        } catch (IllegalArgumentException e) {
+            throw new ResourceNotFoundException("Client is not found");
+        }
     }
 
     public Client mapToEntity(ClientDTO clientDTO) {

@@ -1,6 +1,6 @@
 package com.netcracker.services;
 
-import com.netcracker.dto.FavourDTO;
+import com.netcracker.FavourDtoToAddFavour;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Category;
 import com.netcracker.model.Favour;
@@ -9,12 +9,10 @@ import com.netcracker.repositories.FavourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class FavourService {
@@ -26,26 +24,31 @@ public class FavourService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public List<Favour> getAllServices() {
+    public List<Favour> getAllFavours() {
         return favourRepository.findAll();
     }
 
-    public Favour getServiceById(Integer id) {
+    public Favour getFavourById(Integer id) {
 
         return favourRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Favour not found for id: " + id)
         );
     }
 
+    public List<FavourDtoToAddFavour> getFavoursOfMaster(Integer id) {
+        return favourRepository.getFavoursOfMaster(id);
+    }
 
-    public void createService(Favour favour) {
+    @Transactional
+    public void createFavour(Integer masterId, Favour favour) {
         favour.setCategory(categoryRepository.findById(favour.getCategory().getId()).orElseThrow(
                 () -> new ResourceNotFoundException("Category not found for id: " + favour.getCategory().getId())));
 
         favourRepository.save(favour);
+        favourRepository.setFavoursOfMaster(masterId, favour.getId());
     }
 
-    public void deleteService(Integer id) {
+    public void deleteFavour(Integer id) {
         try {
             favourRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
@@ -60,6 +63,7 @@ public class FavourService {
         favour.setCategory(newFavour.getCategory());
         favour.setTitle(newFavour.getTitle());
         favour.setTime(newFavour.getTime());
+        favour.setPrice(newFavour.getPrice());
 
 
         favourRepository.save(favour);
@@ -84,8 +88,9 @@ public class FavourService {
         if (newFavour.getTime() != null)
             favour.setTime(newFavour.getTime());
 
+        if (newFavour.getPrice() != null)
+            favour.setPrice(newFavour.getPrice());
+
         favourRepository.save(favour);
-
-
     }
 }

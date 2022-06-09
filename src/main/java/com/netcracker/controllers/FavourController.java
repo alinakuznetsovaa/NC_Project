@@ -1,7 +1,10 @@
 package com.netcracker.controllers;
 
+import com.netcracker.FavourDtoToAddFavour;
 import com.netcracker.dto.FavourDTO;
+import com.netcracker.model.Category;
 import com.netcracker.model.Favour;
+import com.netcracker.services.CategoryService;
 import com.netcracker.services.FavourService;
 import com.netcracker.utils.FavourUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,29 +24,45 @@ public class FavourController {
     FavourService favourService;
 
     @Autowired
+    CategoryService categoryService;
+
+    @Autowired
     private FavourUtil favourUtil;
 
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<FavourDTO> getAllFavours() {
-        return favourService.getAllServices().stream().map(favourUtil::mapToDTO).collect(toList());
+        return favourService.getAllFavours().stream().map(favourUtil::mapToDTO).collect(toList());
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public FavourDTO getFavourById(@PathVariable(value = "id") Integer id) {
 
-        Favour favour = favourService.getServiceById(id);
+        Favour favour = favourService.getFavourById(id);
+
 
         return favourUtil.mapToDTO(favour);
     }
 
-    @PostMapping()
+    @GetMapping("/{master_id}/get-favours-of-master")
+    @ResponseStatus(HttpStatus.OK)
+    public List<FavourDtoToAddFavour> getFavoursOfMaster(@PathVariable(value = "master_id") Integer id) {
+
+
+        return favourService.getFavoursOfMaster(id);
+    }
+
+    @PostMapping("/master/{master_id}/category/{category_id}/addfavours")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createFavour(@RequestBody FavourDTO favourDTO) {
+    public FavourDTO createFavour(@PathVariable(value = "master_id") Integer masterId, @PathVariable(value = "category_id") Integer categoryId, @RequestBody FavourDTO favourDTO) {
+        Category category = categoryService.getCategoryById(categoryId);
         Favour favour = favourUtil.mapToEntity(favourDTO);
-        favourService.createService(favour);
+        favour.setCategory(category);
+        favourService.createFavour(masterId, favour);
+        return favourUtil.mapToDTO(favour);
+
     }
 
 
@@ -51,7 +70,7 @@ public class FavourController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFavour(@PathVariable(value = "id") Integer id) {
 
-        favourService.deleteService(id);
+        favourService.deleteFavour(id);
     }
 
     @PutMapping("/{id}")

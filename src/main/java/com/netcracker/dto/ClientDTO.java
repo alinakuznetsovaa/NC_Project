@@ -7,8 +7,7 @@ public class ClientDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private String phone;
-
+    private String password;
 
 
     public Integer getId() {
@@ -43,12 +42,13 @@ public class ClientDTO {
         this.email = email;
     }
 
-
-    public String getPhone() {
-        return phone;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+
 }

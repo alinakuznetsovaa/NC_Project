@@ -7,9 +7,7 @@ public class MasterDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private String address;
-    private String phone;
-
+    private String password;
 
 
     public Integer getId() {
@@ -44,19 +42,12 @@ public class MasterDTO {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+
+    public String getPassword() {
+        return password;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

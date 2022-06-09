@@ -1,18 +1,16 @@
 package com.netcracker.services;
 
-import com.netcracker.dto.MasterDTO;
+import com.netcracker.Login;
+import com.netcracker.RecordDtoForClient;
+import com.netcracker.RecordDtoForMaster;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Master;
 import com.netcracker.repositories.MasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class MasterService {
@@ -31,7 +29,13 @@ public class MasterService {
         );
     }
 
-    public List<String> getRecordsOfMaster(Integer id) {
+    public Master getMasterOnLogin(Login login) {
+
+        return masterRepository.getMasterOnLogin(login.getEmail(), login.getPassword());
+    }
+
+
+    public List<RecordDtoForMaster> getRecordsOfMaster(Integer id) {
         return masterRepository.getRecordsOfMaster(id);
     }
 
@@ -55,7 +59,6 @@ public class MasterService {
         master.setFirstName(newMaster.getFirstName());
         master.setLastName(newMaster.getLastName());
         master.setEmail(newMaster.getEmail());
-        master.setAddress(newMaster.getAddress());
 
         masterRepository.save(master);
 
@@ -73,9 +76,6 @@ public class MasterService {
 
         if (newMaster.getEmail() != null)
             master.setEmail(newMaster.getEmail());
-
-        if (newMaster.getAddress() != null)
-            master.setAddress((newMaster.getAddress()));
 
         masterRepository.save(master);
 

@@ -7,6 +7,7 @@ public class FavourDTO {
     private String title;
     private Category category;
     private Double time;
+    private Integer price;
 
     public Integer getId() {
         return id;
@@ -38,5 +39,13 @@ public class FavourDTO {
 
     public void setTime(Double time) {
         this.time = time;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

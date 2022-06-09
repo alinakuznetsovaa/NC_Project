@@ -1,13 +1,12 @@
 package com.netcracker;
 
-public interface RecordDtoForMaster {
+public interface RecordDtoForClient {
+
     String getRecordId();
 
     String getFirstName();
 
     String getLastName();
-
-    String getAddress();
 
     String getTitle();
 

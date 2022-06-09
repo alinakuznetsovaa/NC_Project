@@ -1,7 +1,11 @@
 package com.netcracker.controllers;
 
+import com.netcracker.Login;
+import com.netcracker.RecordDtoForClient;
+import com.netcracker.RecordDtoForMaster;
 import com.netcracker.dto.MasterDTO;
 import com.netcracker.model.Master;
+import com.netcracker.services.CategoryService;
 import com.netcracker.services.MasterService;
 import com.netcracker.utils.MasterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,9 @@ public class MasterController {
 
     @Autowired
     MasterService masterService;
+
+    @Autowired
+    CategoryService categoryService;
 
 
     @Autowired
@@ -41,15 +48,25 @@ public class MasterController {
 
     @GetMapping("/get-all-records-of-master/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<String> getRecordsOfMaster(@PathVariable(value = "id") Integer id) {
+    public List<RecordDtoForMaster> getRecordsOfMaster(@PathVariable(value = "id") Integer id) {
         return masterService.getRecordsOfMaster(id);
     }
 
+
+    @PostMapping("/get-master-on-login")
+    @ResponseStatus(HttpStatus.OK)
+    public MasterDTO getMasterOnLogin(@RequestBody Login login) {
+        Master master = masterService.getMasterOnLogin(login);
+        return masterUtil.mapToDTO(master);
+    }
+
+
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void createMaster(@RequestBody MasterDTO masterDTO) {
+    public MasterDTO createMaster(@RequestBody MasterDTO masterDTO) {
         Master master = masterUtil.mapToEntity(masterDTO);
         masterService.createMaster(master);
+        return masterUtil.mapToDTO(master);
     }
 
 

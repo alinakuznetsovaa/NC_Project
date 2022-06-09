@@ -1,5 +1,8 @@
 package com.netcracker.services;
 
+import com.netcracker.FavourDtoForClient;
+import com.netcracker.Login;
+import com.netcracker.RecordDtoForClient;
 import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Client;
 import com.netcracker.repositories.ClientRepository;
@@ -24,13 +27,23 @@ public class ClientService {
         );
     }
 
+    public Client getClientOnLogin(Login login) {
+
+        return clientRepository.getClientOnLogin(login.getEmail(), login.getPassword());
+    }
+
     public List<Client> getAllClients() {
         return clientRepository.findAll();
     }
 
-    public List<String> getRecordsOfClient(Integer id) {
+    public List<RecordDtoForClient> getRecordsOfClient(Integer id) {
         return clientRepository.getRecordsOfClient(id);
     }
+
+    public List<FavourDtoForClient> getFavoursOfCategory(Integer id) {
+        return clientRepository.getFavoursOfCategory(id);
+    }
+
 
     public void createClient(Client client) {
         clientRepository.save(client);
@@ -50,9 +63,11 @@ public class ClientService {
                 () -> new ResourceNotFoundException("Client is not found for id: " + id)
         );
 
+
         client.setFirstName(newClient.getFirstName());
         client.setLastName(newClient.getLastName());
         client.setEmail(newClient.getEmail());
+        client.setPassword(newClient.getPassword());
 
 
         clientRepository.save(client);
@@ -70,6 +85,8 @@ public class ClientService {
             client.setLastName(newClient.getLastName());
         if (newClient.getEmail() != null)
             client.setEmail(newClient.getEmail());
+        if (newClient.getPassword() != null)
+            client.setPassword(newClient.getPassword());
 
         clientRepository.save(client);
     }

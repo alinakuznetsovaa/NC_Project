@@ -1,5 +1,6 @@
 package com.netcracker.model;
 
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -26,11 +27,11 @@ public class Record {
     @JoinColumn(name = "favour_id")
     private Favour favour;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_start", nullable = false)
     private Date dateStart;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_end", nullable = false)
     private Date dateEnd;
 
@@ -78,7 +79,7 @@ public class Record {
     }
 
     public Date getDateStart() {
-        return dateStart;
+        return this.dateStart;
     }
 
     public void setDateStart(Date dateStart) {
@@ -86,7 +87,7 @@ public class Record {
     }
 
     public Date getDateEnd() {
-        return dateEnd;
+        return this.dateEnd;
     }
 
     public void setDateEnd(Date dateEnd) {
