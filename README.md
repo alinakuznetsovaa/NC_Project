@@ -1,38 +1,33 @@
 # Project: Application for online registration for procedures
 ## _Application design:_
-* ___Registration (by mail)___
+* ___Registration___
     * _For the master_
- 		* First name, Last name, email, studio address 
- 		* A list of services (with the time of the procedure)for each category(massage, nails, etc.)
+ 		* First name, Last name, email, password 
 
  	* _For the client_
- 		* First name, Last name,  email
+ 		* First name, Last name,  email, password
 
 * ___Authorization (by mail)___
 	* _For the client_
  	* _For the master_
 
-* ___Home page___
-	 * _Search for services_ 
- 		* Displaying service categories when searching
- 		* Date selection
- 		* Display of suitable masters after the search
- 	* _Recording_
- 		* Selection of the master, services, time 
- 		* Formation of a record with the status: _"awaiting confirmation"_
+* ___Client page___
+	* _View the list of masters/categories_ 
+ 	* _Creating record for a favour_
+ 		* Selection of the master, favour, time 
+ 		* Formation of a record 
+	* _List of records_
+		* Cancel an upcoming record 
  
 
-* ___Personal account___
- 	* _List of upcoming sessions_
- 		* Change the status of the record to _"confirmed"_ (after confirmation of the master)
-		* Change the session (date and time)
-		* Cancel the session
+* ___Master page___
+	* _Creating favours for various categories_
+ 	* _List of records_
+		* Cancel an upcoming record 
+	* _Mailing of promotions by mail_
 
- 	* _List of sessions that have passed_
- 		* Rate and leave a review
 
-* ___Mailing of promotions by mail___
 
 ***
 ## _Database structure:_
-![](Diagram.jpg)
+![](giagram.png)
