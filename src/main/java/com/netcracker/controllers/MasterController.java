@@ -2,6 +2,7 @@ package com.netcracker.controllers;
 
 import com.netcracker.Login;
 import com.netcracker.RecordDtoForClient;
+import com.netcracker.RecordDtoForMaster;
 import com.netcracker.dto.MasterDTO;
 import com.netcracker.model.Master;
 import com.netcracker.services.CategoryService;
@@ -47,7 +48,7 @@ public class MasterController {
 
     @GetMapping("/get-all-records-of-master/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<RecordDtoForClient> getRecordsOfMaster(@PathVariable(value = "id") Integer id) {
+    public List<RecordDtoForMaster> getRecordsOfMaster(@PathVariable(value = "id") Integer id) {
         return masterService.getRecordsOfMaster(id);
     }
 

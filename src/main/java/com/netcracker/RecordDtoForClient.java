@@ -8,8 +8,6 @@ public interface RecordDtoForClient {
 
     String getLastName();
 
-    String getAddress();
-
     String getTitle();
 
     String getPrice();

@@ -9,8 +9,6 @@ public interface FavourDtoForClient {
 
     String getMasterLastName();
 
-    String getAddress();
-
     String getCategoryTitle();
 
     String getFavourTitle();

@@ -5,16 +5,15 @@ import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Client;
 import com.netcracker.repositories.ClientRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class ClientUtil {
     private ModelMapper mapper;
-    private ClientRepository clientRepository;
 
-    public ClientUtil(ModelMapper mapper, ClientRepository clientRepository) {
+    public ClientUtil(ModelMapper mapper) {
         this.mapper = mapper;
-        this.clientRepository = clientRepository;
     }
 
     public ClientDTO mapToDTO(Client client) {

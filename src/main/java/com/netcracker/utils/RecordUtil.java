@@ -4,18 +4,17 @@ import com.netcracker.dto.RecordDTO;
 import com.netcracker.model.Record;
 import com.netcracker.repositories.RecordRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 
-@Service
+@Component
 public class RecordUtil {
     private ModelMapper mapper;
-    private RecordRepository recordRepository;
 
-    public RecordUtil(ModelMapper mapper, RecordRepository recordRepository) {
+    public RecordUtil(ModelMapper mapper) {
         this.mapper = mapper;
-        this.recordRepository = recordRepository;
     }
 
     public RecordDTO mapToDTO(Record record) {

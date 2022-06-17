@@ -22,8 +22,6 @@ public class Master {
 
     private String email;
 
-    private String address;
-
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -34,11 +32,10 @@ public class Master {
     private List<Favour> favours;
 
 
-    public Master(String firstName, String lastName, String email, String address, String password, List<Favour> favours) {
+    public Master(String firstName, String lastName, String email, String password, List<Favour> favours) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.address = address;
         this.password = password;
         this.favours = favours;
     }
@@ -86,13 +83,7 @@ public class Master {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getPassword() {
         return password;
@@ -107,12 +98,12 @@ public class Master {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Master master = (Master) o;
-        return Objects.equals(id, master.id) && Objects.equals(firstName, master.firstName) && Objects.equals(lastName, master.lastName) && Objects.equals(email, master.email) && Objects.equals(address, master.address);
+        return Objects.equals(id, master.id) && Objects.equals(firstName, master.firstName) && Objects.equals(lastName, master.lastName) && Objects.equals(email, master.email) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, address);
+        return Objects.hash(id, firstName, lastName, email);
     }
 
     @Override
@@ -121,8 +112,6 @@ public class Master {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+                ", email='" + email + '}';
     }
 }

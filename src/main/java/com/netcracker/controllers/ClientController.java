@@ -4,8 +4,10 @@ import com.netcracker.FavourDtoForClient;
 import com.netcracker.Login;
 import com.netcracker.RecordDtoForClient;
 import com.netcracker.dto.ClientDTO;
+import com.netcracker.mail.Email;
 import com.netcracker.model.Client;
 import com.netcracker.services.ClientService;
+import com.netcracker.mail.EmailService;
 import com.netcracker.utils.ClientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,9 @@ public class ClientController {
     @Autowired
     ClientUtil clientUtil;
 
+    @Autowired
+    EmailService emailService;
+
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
@@ -47,6 +52,11 @@ public class ClientController {
     public ClientDTO getClientOnLogin(@RequestBody Login login) {
         Client client = clientService.getClientOnLogin(login);
         return clientUtil.mapToDTO(client);
+    }
+    @PostMapping("/email")
+    @ResponseStatus(HttpStatus.OK)
+    public void sendEmail(@RequestBody Email email) {
+        emailService.sendEmail(email);
     }
 
 

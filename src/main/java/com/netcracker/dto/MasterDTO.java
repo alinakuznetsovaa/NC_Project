@@ -7,7 +7,6 @@ public class MasterDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private String address;
     private String password;
 
 
@@ -43,13 +42,6 @@ public class MasterDTO {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getPassword() {
         return password;

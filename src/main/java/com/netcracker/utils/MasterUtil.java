@@ -5,16 +5,15 @@ import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.model.Master;
 import com.netcracker.repositories.MasterRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class MasterUtil {
     private ModelMapper mapper;
-    private MasterRepository masterRepository;
 
-    public MasterUtil(ModelMapper mapper, MasterRepository masterRepository) {
+    public MasterUtil(ModelMapper mapper) {
         this.mapper = mapper;
-        this.masterRepository = masterRepository;
     }
 
     public MasterDTO mapToDTO(Master master) {

@@ -4,16 +4,15 @@ import com.netcracker.dto.CategoryDTO;
 import com.netcracker.model.Category;
 import com.netcracker.repositories.CategoryRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class CategoryUtil {
     private ModelMapper mapper;
-    private CategoryRepository categoryRepository;
 
-    public CategoryUtil(ModelMapper mapper, CategoryRepository categoryRepository) {
+    public CategoryUtil(ModelMapper mapper) {
         this.mapper = mapper;
-        this.categoryRepository = categoryRepository;
     }
 
     public CategoryDTO mapToDTO(Category category) {

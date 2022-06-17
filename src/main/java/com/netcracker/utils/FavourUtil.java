@@ -4,17 +4,16 @@ import com.netcracker.dto.FavourDTO;
 import com.netcracker.model.Favour;
 import com.netcracker.repositories.FavourRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class FavourUtil {
 
     private ModelMapper mapper;
-    private FavourRepository favourRepository;
 
-    public FavourUtil(ModelMapper mapper, FavourRepository favourRepository) {
+    public FavourUtil(ModelMapper mapper) {
         this.mapper = mapper;
-        this.favourRepository = favourRepository;
     }
 
     public FavourDTO mapToDTO(Favour favour) {
